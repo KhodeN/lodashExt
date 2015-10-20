@@ -1,0 +1,25 @@
+{
+  "name": "lodashExt",
+  "version": "0.0.1",
+  "homepage": "https://github.com/KhodeN/lodashExt",
+  "authors": [
+    "Artem Berezin <berezin.artem@gmail.com>"
+  ],
+  "description": "Lodash additional methods",
+  "main": "dist/lodashExt.js",
+  "moduleType": [],
+  "keywords": [
+    "lodash"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "~3.10.1"
+  }
+}

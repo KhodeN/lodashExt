@@ -1,0 +1,26 @@
+{
+  "name": "lodash-ext",
+  "version": "0.0.1",
+  "description": "Lodash additional methods",
+  "main": "dist/lodashExt.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KhodeN/lodashExt.git"
+  },
+  "keywords": [
+    "lodash"
+  ],
+  "author": "Artem Berezin <berezin.artem@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KhodeN/lodashExt/issues"
+  },
+  "homepage": "https://github.com/KhodeN/lodashExt#readme",
+  "devDependencies": {
+    "jasmine-node": "^1.14.5",
+    "typescript": "^1.6.2"
+  }
+}
