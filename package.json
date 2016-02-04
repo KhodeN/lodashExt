@@ -1,10 +1,11 @@
 {
   "name": "lodash-ext",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Lodash additional methods",
   "main": "dist/lodashExt.js",
   "scripts": {
-    "test": "gulp test"
+    "tsc": "tsc",
+    "test": "jasmine-node --runWithRequireJs --requireJsSetup require.config.js --matchall --verbose dist"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,6 @@
   "homepage": "https://github.com/KhodeN/lodashExt#readme",
   "devDependencies": {
     "jasmine-node": "^1.14.5",
-    "typescript": "^1.6.2"
+    "typescript": "^1.7.5"
   }
 }

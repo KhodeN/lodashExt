@@ -301,7 +301,7 @@ define(["require", "exports", 'lodash'], function (require, exports) {
      */
     function omitPrivateFields(obj, prefixies) {
         if (prefixies === void 0) { prefixies = ['$', '_']; }
-        if (!_.isObject(obj)) {
+        if (!_.isObject(obj) || _.isDate(obj)) {
             return obj;
         }
         if (_.isArray(obj)) {

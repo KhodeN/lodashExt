@@ -463,6 +463,11 @@ describe('lodash extensions', function () {
 
         expect(_.omitPrivateFields('sfsfsdf')).toEqual('sfsfsdf');
         expect(_.omitPrivateFields(null)).toEqual(null);
+
+        var date = new Date();   
+        expect(_.omitPrivateFields(date)).toEqual(date);
+        expect(_.omitPrivateFields({ x: date })).toEqual({ x: date });
+        expect(_.omitPrivateFields([date, 12])).toEqual([date, 12]);
     });
 
     it('_.words should support cyrillic', function () {

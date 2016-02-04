@@ -329,7 +329,7 @@ function limitTo(value: number, min: number, max: number) {
  * @returns {Object} Копия объекта, но без приватных полей
  */
 function omitPrivateFields(obj: any, prefixies = ['$', '_']): any {
-    if (!_.isObject(obj)) {
+    if (!_.isObject(obj) || _.isDate(obj)) {
         return obj;
     }
 
