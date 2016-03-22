@@ -1,4 +1,4 @@
-/// <reference path="typings/tsd.d.ts"/>
+/// <reference path="typings/browser.d.ts"/>
 /// <reference path="lodashExt.d.ts"/>
 
 import 'lodash';
@@ -35,14 +35,14 @@ function addItems<T>(source: T[], items: T[]) {
  */
 function addUniq<T>(list: T[], item: T) {
     var hasBeenAdded = false;
-    if (_.isArray(item)) {
+    if ( _.isArray(item) ) {
         _.forEach(item, function (i) {
-            if (addUniq(list, i)) {
+            if ( addUniq(list, i) ) {
                 hasBeenAdded = true;
             }
         });
     } else {
-        if (!_.includes(list, item)) {
+        if ( !_.includes(list, item) ) {
             list.push(item);
             hasBeenAdded = true;
         }
@@ -57,14 +57,14 @@ function addUniq<T>(list: T[], item: T) {
  *
  * @param {ng.IScope} scope
  * @param {HTMLElement|jQuery} elm
- * @param {string} event название событие или несколько событий, разделенных пробелом
+ * @param {string} eventName название событие или несколько событий, разделенных пробелом
  * @param {Function} handler функция-обработчик
  */
-function bindDomEventToScope(scope: ng.IScope, elm: JQuery, event: string, handler: Function) {
+function bindDomEventToScope(scope: ng.IScope, elm: JQuery, eventName: string, handler: Function) {
     elm = angular.element(elm);
-    elm.on(event, handler);
+    elm.on(<any>eventName, handler);
     scope.$on('$destroy', function () {
-        elm.off(event, (e) => handler(e));
+        elm.off(eventName, (e) => handler(e));
     });
 }
 
@@ -75,14 +75,14 @@ function bindDomEventToScope(scope: ng.IScope, elm: JQuery, event: string, handl
  * @returns {Object} тот же объект, что на входе
  */
 function camelizeObject(obj: any) {
-    if (!_.isObject(obj) || _.isFunction(obj)) {
+    if ( !_.isObject(obj) || _.isFunction(obj) ) {
         return;
     }
     var mapToRename: any = {};
     _.forEach(obj, (value: any, key: string) => {
-            if (_.isArray(value)) {
+            if ( _.isArray(value) ) {
                 _.forEach(value, camelizeObject);
-            } else if (_.isObject(value)) {
+            } else if ( _.isObject(value) ) {
                 camelizeObject(value);
             }
             mapToRename[key] = _.camelCase(key);
@@ -108,7 +108,7 @@ function clearDefaults(obj: any, defaults: any = {}) {
     var result: any = {};
 
     _.forIn(omitPrivateFields(obj), function (val, key) {
-        if (isValuable(val) && !_.isEqual(defaults[key], val)) {
+        if ( isValuable(val) && !_.isEqual(defaults[key], val) ) {
             result[key] = val;
         }
     });
@@ -144,17 +144,17 @@ function truncFactory() {
      * @returns {string}
      */
     return function (input: string, limit: number, byWord = false) {
-        if (_.isUndefined(input) || _.isNull(input)) {
+        if ( _.isUndefined(input) || _.isNull(input) ) {
             return '';
         }
         input = input.toString();
         // Если и так короткая - возвращаем без изменений
-        if (input.length <= limit + ellipsisCount) {
+        if ( input.length <= limit + ellipsisCount ) {
             return input;
         }
 
         // Если бить по словам не надо, просто возвращаем укороченную версию
-        if (!byWord) {
+        if ( !byWord ) {
             return input.slice(0, limit) + ellipsis;
         }
 
@@ -164,7 +164,7 @@ function truncFactory() {
         var result = '';
         for (var i = 0, l = words.length; i < l; i += 1) {
             var word = words[i];
-            if ((result.length + word.length) >= limit + ellipsisCount) {
+            if ( (result.length + word.length) >= limit + ellipsisCount ) {
                 break;
             }
             result += word;
@@ -184,17 +184,17 @@ function truncFactory() {
  * @returns {string|null} null  строка с символом или `null`, если нажатая клавиша не вводит никаких символов
  */
 function getCharFromKeypress(event: KeyboardEvent) {
-    if (event.which === null) { // IE
+    if ( event.which === null ) { // IE
         // спец. символ
-        if (event.keyCode < 32) {
+        if ( event.keyCode < 32 ) {
             return null;
         }
         return String.fromCharCode(event.keyCode);
     }
 
-    if (event.which !== 0 && event.charCode !== 0) { // все кроме IE
+    if ( event.which !== 0 && event.charCode !== 0 ) { // все кроме IE
         // спец. символ
-        if (event.which < 32) {
+        if ( event.which < 32 ) {
             return null;
         }
         return String.fromCharCode(event.which); // остальные
@@ -213,11 +213,11 @@ function getCharFromKeypress(event: KeyboardEvent) {
  * @returns {boolean}
  */
 function hasValues(obj: any, _objects?: any): boolean {
-    if (!_.isArray(_objects)) {
+    if ( !_.isArray(_objects) ) {
         _objects = [];
     }
 
-    if (!_.isObject(obj) || _.isEmpty(obj)) {
+    if ( !_.isObject(obj) || _.isEmpty(obj) ) {
         return false;
     }
 
@@ -226,9 +226,9 @@ function hasValues(obj: any, _objects?: any): boolean {
     return _(obj)
         .values()
         .some((val: any) => {
-            if (_.isObject(val)) {
+            if ( _.isObject(val) ) {
 
-                if (_.includes(_objects, val)) {
+                if ( _.includes(_objects, val) ) {
                     throw 'Recursion!';
                 }
 
@@ -289,7 +289,7 @@ function isPromise(promise: ng.IPromise<any>) {
  * @returns {boolean} содержит ли оно что-нибудь полезное
  */
 function isValuable(value: any) {
-    if ((_.isNumber(value) && !_.isNaN(value)) || _.isObject(value) || _.isBoolean(value)) {
+    if ( (_.isNumber(value) && !_.isNaN(value)) || _.isObject(value) || _.isBoolean(value) ) {
         return true;
     }
     return !_.isEmpty(value);
@@ -306,15 +306,15 @@ function isValuable(value: any) {
  * @returns {number}
  */
 function limitTo(value: number, min: number, max: number) {
-    if (!_.isNumber(value) || _.isNaN(value)) {
+    if ( !_.isNumber(value) || _.isNaN(value) ) {
         return min;
     }
 
-    if (value > max) {
+    if ( value > max ) {
         return max;
     }
 
-    if (value < min) {
+    if ( value < min ) {
         return min;
     }
 
@@ -329,11 +329,11 @@ function limitTo(value: number, min: number, max: number) {
  * @returns {Object} Копия объекта, но без приватных полей
  */
 function omitPrivateFields(obj: any, prefixies = ['$', '_']): any {
-    if (!_.isObject(obj) || _.isDate(obj)) {
+    if ( !_.isObject(obj) || _.isDate(obj) ) {
         return obj;
     }
 
-    if (_.isArray(obj)) {
+    if ( _.isArray(obj) ) {
         return _.map(obj, function (item) {
             return omitPrivateFields(item, prefixies);
         });
@@ -362,14 +362,14 @@ function omitPrivateFields(obj: any, prefixies = ['$', '_']): any {
  * @returns {Object} тот же объект, что на входе
  */
 function pythonizeObject(obj: any) {
-    if (!_.isObject(obj) || _.isFunction(obj)) {
+    if ( !_.isObject(obj) || _.isFunction(obj) ) {
         return;
     }
     var mapToRename: any = {};
     _.forEach(obj, (value: any, key: string) => {
-        if (_.isArray(value)) {
+        if ( _.isArray(value) ) {
             _.forEach(value, pythonizeObject);
-        } else if (_.isObject(value)) {
+        } else if ( _.isObject(value) ) {
             pythonizeObject(value);
         }
         mapToRename[key] = _.snakeCase(key);
@@ -417,11 +417,11 @@ function removeItems<T>(list: T[], items: T[]) {
  * @returns {Object} исходный объект, но с переименованными полями
  */
 function renameFields(obj: any, hash: any) {
-    if (!_.isObject(obj)) {
+    if ( !_.isObject(obj) ) {
         return obj;
     }
     _.forEach(hash, (newFieldName: string, oldFieldName: string) => {
-        if (newFieldName !== oldFieldName && _.has(obj, oldFieldName)) {
+        if ( newFieldName !== oldFieldName && _.has(obj, oldFieldName) ) {
             obj[newFieldName] = obj[oldFieldName];
             delete obj[oldFieldName];
         }
@@ -484,12 +484,12 @@ function waitFor(config: IWaitForConfig, context: any): {cancel: Function} {
 
     function check() {
         count += 1;
-        if (count > maxCount) {
+        if ( count > maxCount ) {
             config.timeout.call(context);
             canceled = true;
             return;
         }
-        if (config.check()) {
+        if ( config.check() ) {
             config.then.call(context);
             canceled = true;
             return;
@@ -556,6 +556,6 @@ _.mixin({
     waitFor: waitFor,
     words: _.partial(_.words, _, reWords),
     wordsOriginal: _.words
-}, { chain: false });
+}, {chain: false});
 
 export default _;

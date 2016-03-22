@@ -1,13 +1,15 @@
 {
-    "compilerOptions": {
-        "module": "amd",
-        "target": "es5",
-        "noImplicitAny": true,
-        "outDir": "dist",
-        "rootDir": ".",
-        "sourceMap": false
-    },
-    "exclude": [
-        "node_modules"
-    ]
+  "compilerOptions": {
+    "module": "umd",
+    "target": "es5",
+    "noImplicitAny": true,
+    "outDir": "dist",
+    "sourceMap": false
+  },
+  "exclude": [
+    "node_modules",
+    "bower_components",
+    "typings/main",
+    "typings/main.d.ts"
+  ]
 }

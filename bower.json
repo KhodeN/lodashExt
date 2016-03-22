@@ -1,6 +1,6 @@
 {
   "name": "lodashExt",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "homepage": "https://github.com/KhodeN/lodashExt",
   "authors": [
     "Artem Berezin <berezin.artem@gmail.com>"
@@ -20,6 +20,6 @@
     "tests"
   ],
   "dependencies": {
-    "lodash": "~3.10.1"
+    "lodash": "^4.6.1"
   }
 }

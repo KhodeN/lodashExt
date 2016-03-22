@@ -1,6 +1,15 @@
-/// <reference path="typings/tsd.d.ts"/>
+/// <reference path="typings/browser.d.ts"/>
 /// <reference path="lodashExt.d.ts"/>
-define(["require", "exports", 'lodash'], function (require, exports) {
+(function (factory) {
+    if (typeof module === 'object' && typeof module.exports === 'object') {
+        var v = factory(require, exports); if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === 'function' && define.amd) {
+        define(["require", "exports", 'lodash'], factory);
+    }
+})(function (require, exports) {
+    "use strict";
+    require('lodash');
     /**
      * Модуль, добавляющий в lodash разные полезные методы, отсутствующие из коробки.
      *
@@ -52,14 +61,14 @@ define(["require", "exports", 'lodash'], function (require, exports) {
      *
      * @param {ng.IScope} scope
      * @param {HTMLElement|jQuery} elm
-     * @param {string} event название событие или несколько событий, разделенных пробелом
+     * @param {string} eventName название событие или несколько событий, разделенных пробелом
      * @param {Function} handler функция-обработчик
      */
-    function bindDomEventToScope(scope, elm, event, handler) {
+    function bindDomEventToScope(scope, elm, eventName, handler) {
         elm = angular.element(elm);
-        elm.on(event, handler);
+        elm.on(eventName, handler);
         scope.$on('$destroy', function () {
-            elm.off(event, function (e) { return handler(e); });
+            elm.off(eventName, function (e) { return handler(e); });
         });
     }
     /**
@@ -230,7 +239,7 @@ define(["require", "exports", 'lodash'], function (require, exports) {
             function F() {
             }
             return F;
-        })();
+        }());
         F.prototype = Parent.prototype;
         Child.prototype = new F();
         Child.prototype.constructor = Child;

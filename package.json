@@ -1,6 +1,6 @@
 {
   "name": "lodash-ext",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Lodash additional methods",
   "main": "dist/lodashExt.js",
   "scripts": {
@@ -22,6 +22,6 @@
   "homepage": "https://github.com/KhodeN/lodashExt#readme",
   "devDependencies": {
     "jasmine-node": "^1.14.5",
-    "typescript": "^1.7.5"
+    "typescript": "^1.8.9"
   }
 }
