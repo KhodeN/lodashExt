@@ -1,7 +1,7 @@
-/// <reference path="typings/browser.d.ts"/>
-/// <reference path="lodashExt.d.ts"/>
+/// <reference path="../typings/browser.d.ts"/>
+/// <reference path="../lodashExt.d.ts"/>
 
-import 'lodash';
+import _ = require('lodash');
 
 /**
  * Модуль, добавляющий в lodash разные полезные методы, отсутствующие из коробки.
