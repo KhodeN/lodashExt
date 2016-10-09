@@ -35,6 +35,37 @@ describe('lodash extensions', function () {
             expect(list1).toEqual([1, 2, 3, 4, 5, 7]);
         });
     });
+    describe('assignInjections method', function () {
+        it('should skip 0 by default', function () {
+            function TestConstructor(a, b, c) {
+                lodashExt_1.default.assignInjections(this, TestConstructor, arguments);
+            }
+            TestConstructor.$inject = ['a', 'b', 'c'];
+            var instance = new TestConstructor(1, 2, 3);
+            expect(instance.a).toBe(1);
+            expect(instance.b).toBe(2);
+            expect(instance.c).toBe(3);
+        });
+        it('should skip first n arguments', function () {
+            function TestConstructor(a, b, c) {
+                lodashExt_1.default.assignInjections(this, TestConstructor, arguments, 2);
+            }
+            TestConstructor.$inject = ['a', 'b', 'c'];
+            var instance = new TestConstructor(1, 2, 3);
+            expect(instance.a).toBeUndefined();
+            expect(instance.b).toBeUndefined();
+            expect(instance.c).toBe(3);
+        });
+        it('should not fail if no $inject', function () {
+            function TestConstructor(a, b, c) {
+                lodashExt_1.default.assignInjections(this, TestConstructor, arguments);
+            }
+            expect(function () {
+                var instance = new TestConstructor(1, 2, 3);
+                lodashExt_1.default.noop(instance);
+            }).not.toThrow();
+        });
+    });
     describe('removeItem', function () {
         it('remove, if exists', function () {
             var list = [2, 3, 4];

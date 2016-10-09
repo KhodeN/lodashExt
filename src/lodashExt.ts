@@ -1,4 +1,4 @@
-/// <reference path="../typings/browser.d.ts"/>
+/// <reference path="../typings/index.d.ts"/>
 /// <reference path="../lodashExt.d.ts"/>
 
 import _ = require('lodash');
@@ -50,6 +50,31 @@ function addUniq<T>(list: T[], item: T) {
     return hasBeenAdded;
 }
 
+/**
+ * Вспомагательный метод для упрощения инжектирования зависимостей через конструктор
+ *
+ * Прописывает зависимости в поля объекта
+ *
+ * Используется в angular-приложениях при определении сервиса или контроллера примерно следующим образом:
+ *
+ *     function TestService(){
+         *         _.assignInjections(this, TestService, arguments);
+         *         // тут будут доступны this.$http и this.$timeout
+         *     }
+ *     TestService.$inject = ['$http', '$timeout'];
+ *
+ * @param {Object} context объект, в который будут прописаны зависимости
+ * @param {Function} constructor конструктор для которого заданы зависимости в поле `$inject`
+ * @param {Array} args массив зависимостей (чаще всего это arguments конструктора)
+ * @param {number} [skipFirst] пропустить несколько первых инъекций. Это иногда это удобно при наследовании.
+ */
+function assignInjections(context: any, constructor: any, args: IArguments, skipFirst = 0) {
+    skipFirst = skipFirst || 0;
+
+    _.forEach(_.slice(constructor.$inject, skipFirst), (dependencyName: string, index: number) => {
+        context[dependencyName] = args[skipFirst + index];
+    });
+}
 /**
  * Подписывается на DOM-событие. Отписывается когда `scope` уничтожается
  *
@@ -537,6 +562,7 @@ var reWords = (function () {
 _.mixin({
     addItems: addItems,
     addUniq: addUniq,
+    assignInjections: assignInjections,
     bindDomEventToScope: bindDomEventToScope,
     camelizeObject: camelizeObject,
     clearDefaults: clearDefaults,
