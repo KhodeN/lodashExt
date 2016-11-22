@@ -1,7 +1,7 @@
 /// <reference path="../typings/index.d.ts"/>
 /// <reference path="../lodashExt.d.ts"/>
 "use strict";
-var _ = require('lodash');
+var _ = require("lodash");
 /**
  * Модуль, добавляющий в lodash разные полезные методы, отсутствующие из коробки.
  *

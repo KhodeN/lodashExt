@@ -1,5 +1,5 @@
 "use strict";
-var lodashExt_1 = require('./lodashExt');
+var lodashExt_1 = require("./lodashExt");
 describe('lodash extensions', function () {
     'use strict';
     describe('addUniq', function () {
