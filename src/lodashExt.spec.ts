@@ -58,7 +58,7 @@ describe('lodash extensions', function () {
                 _.assignInjections(this, TestConstructor, arguments);
             }
 
-            TestConstructor.$inject = ['a', 'b', 'c'];
+            (<any>TestConstructor).$inject = ['a', 'b', 'c'];
 
             var instance = new TestConstructor(1, 2, 3);
 
@@ -72,7 +72,7 @@ describe('lodash extensions', function () {
                 _.assignInjections(this, TestConstructor, arguments, 2);
             }
 
-            TestConstructor.$inject = ['a', 'b', 'c'];
+            (<any>TestConstructor).$inject = ['a', 'b', 'c'];
 
             var instance = new TestConstructor(1, 2, 3);
 
@@ -451,12 +451,16 @@ describe('lodash extensions', function () {
     });
 
     xdescribe('bindDomEventToScope', function () {
+        var angular: any;
+        var inject: Function;
+        var $: any;
+
         beforeEach(angular.mock.module('ng'));
 
-        var scope: ng.IScope;
-        var el: JQuery;
+        var scope: any;
+        var el: any;
         var fakeAction: Function;
-        beforeEach(inject(function ($rootScope: ng.IRootScopeService) {
+        beforeEach(inject(function ($rootScope: any) {
             scope = $rootScope.$new();
             el = $('<button></button>');
             fakeAction = jasmine.createSpy('action');

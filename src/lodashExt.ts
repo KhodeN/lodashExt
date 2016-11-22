@@ -75,6 +75,7 @@ function assignInjections(context: any, constructor: any, args: IArguments, skip
         context[dependencyName] = args[skipFirst + index];
     });
 }
+
 /**
  * Подписывается на DOM-событие. Отписывается когда `scope` уничтожается
  *
@@ -85,7 +86,8 @@ function assignInjections(context: any, constructor: any, args: IArguments, skip
  * @param {string} eventName название событие или несколько событий, разделенных пробелом
  * @param {Function} handler функция-обработчик
  */
-function bindDomEventToScope(scope: ng.IScope, elm: JQuery, eventName: string, handler: Function) {
+function bindDomEventToScope(scope: any, elm: any, eventName: string, handler: Function) {
+    var angular: any;
     elm = angular.element(elm);
     elm.on(<any>eventName, handler);
     scope.$on('$destroy', function () {
@@ -297,7 +299,7 @@ function inherit(Child: Function, Parent: Function, overrides: any) {
  * @param {Object} promise
  * @returns {boolean}
  */
-function isPromise(promise: ng.IPromise<any>) {
+function isPromise(promise: any) {
     return _.isObject(promise) &&
         _.isFunction(promise.then) &&
         _.isFunction(promise.catch) &&

@@ -6,7 +6,7 @@ declare namespace _ {
         assignInjections(context: any,
                          constructor: any,
                          args: IArguments, skipFirst?: number): void;
-        bindDomEventToScope(scope: ng.IScope, elm: JQuery, event: string, handler: Function): void;
+        bindDomEventToScope(scope: any, elm: any, event: string, handler: Function): void;
         camelizeObject(obj: any): any;
         clearDefaults(obj: any, defaults?: any): any;
         emTrunc(input: string, limit: number, byWord?: boolean): string;
@@ -27,3 +27,7 @@ declare namespace _ {
     /* tslint:enable:interface-name */
 }
 
+declare module 'lodash-ext' {
+    var _: _.LoDashStatic;
+    export = _;
+}

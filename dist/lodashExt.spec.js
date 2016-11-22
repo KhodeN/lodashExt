@@ -357,6 +357,9 @@ describe('lodash extensions', function () {
         expect(lodashExt_1.default.limitTo(null, 10, 100)).toBe(10);
     });
     xdescribe('bindDomEventToScope', function () {
+        var angular;
+        var inject;
+        var $;
         beforeEach(angular.mock.module('ng'));
         var scope;
         var el;

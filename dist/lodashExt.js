@@ -82,6 +82,7 @@ function assignInjections(context, constructor, args, skipFirst) {
  * @param {Function} handler функция-обработчик
  */
 function bindDomEventToScope(scope, elm, eventName, handler) {
+    var angular;
     elm = angular.element(elm);
     elm.on(eventName, handler);
     scope.$on('$destroy', function () {
